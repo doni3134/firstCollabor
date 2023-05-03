@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API 연습</title>
+</head>
+
+<body>
+    <h1> API 연습용  </h1>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        <div class="mx-auto mt-5 search-bar input-group mb-3">
+            <input id=bookName type="text" class="form-control" placeholder="책 이름" aria-label="Recipient's username" aira-describedby="button-addon2">
+            <div class="input-group-append">
+                <button id="search" class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+            </div>
+        </div>
+    <script>
+        var xhr = new XMLHttpRequest();
+        var url = 'http://apis.data.go.kr/6260000/BusanTblClthrtStusService/getTblClthrtStusInfo'; /*URL*/
+        var queryParams = '?' + encodeURIComponent('serviceKey') + '=' + 'JDMqdp%2BpoONBbwPcgyUBqPvPWNQTSn1hBb3UMXx4Cb30rkGJNk9LklKeX2ftPpp0dmXX%2FSJHaEzUBIXrtJl%2BLg%3D%3D'; /*Service Key*/
+        queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /**/
+        queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /**/
+        queryParams += '&' + encodeURIComponent('cultHeritNm') + '=' + encodeURIComponent('석조보살좌상'); /**/
+        queryParams += '&' + encodeURIComponent('resultType') + '=' + encodeURIComponent('json'); /**/
+        xhr.open('GET', url + queryParams);
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                console.log('Status: ' + this.status + 'nHeaders: ' + JSON.stringify(this.getAllResponseHeaders()) + 'nBody: ' + this.responseText);
+            }
+        };
+
+        xhr.send('');
+    </script>
+</body>
+
+</html>
