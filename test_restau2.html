@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>식당 테스트</h1>
+  <input id="search" type="text" value="">
+  <button id="button1" onclick="getdata()">검색</button>
+  <div id="test1"></div>
+  <script>
+    function getdata() {
+      fetch('https://apis.data.go.kr/6260000/FoodService/getFoodKr?serviceKey=dvxaXfX6hB3M%2Fhizzw%2BrCC5c9677ILG8ULWYM7y7R5YLKbl332xtCDxaJGj3TBALyf9sGSQktMV5W3hSS60fJg%3D%3D&pageNo=1&numOfRows=150&resultType=json')
+        .then((response) => response.json())
+        .then((data) => {
+          var search = document.getElementById("search").value;
+          var results = [];
+          for (let i = 0; i < data['data'].length; i++) {
+            var title = data['item'][i]['MAIN_TITLE'];
+            var address = data['item'][i]['ADDR1'];
+            var openTime = data['item'][i]['USAGE_DAY_WEEK_AND_TIME'];
+            var imageSrc = data['item'][i]['MAIN_IMG_THUMB'];
+
+            if (title.includes(search)) {
+              var resultDiv = document.createElement('div');
+              var titleElement = document.createElement('h3');
+              titleElement.textContent = title;
+              resultDiv.appendChild(titleElement);
+
+              var addressElement = document.createElement('p');
+              addressElement.textContent = address;
+              resultDiv.appendChild(addressElement);
+
+              var openTimeElement = document.createElement('p');
+              openTimeElement.textContent = '오픈시간: ' + openTime;
+              resultDiv.appendChild(openTimeElement);
+
+              var imageElement = document.createElement('img');
+              imageElement.src = imageSrc;
+              resultDiv.appendChild(imageElement);
+
+              results.push(resultDiv);
+
+              if (results.length === 10) {
+                break;
+              }
+            }
+          }
+
+          var resultContainer = document.getElementById('test1');
+          resultContainer.innerHTML = '';
+
+          if (results.length > 0) {
+            for (var i = 0; i < results.length; i++) {
+              resultContainer.appendChild(results[i]);
+            }
+          } else {
+            resultContainer.textContent = '검색 결과가 없습니다.';
+          }
+        });
+    }
+  </script>
+</body>
+
+</html>

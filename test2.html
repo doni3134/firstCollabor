@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>맛집 검색</title>
+</head>
+
+<body>
+    <h1>맛집 검색</h1>
+
+    <input type="text" id="keyword" placeholder="검색어를 입력하세요">
+    <button onclick="search()">검색</button>
+
+    <div id="result"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        function search() {
+            var keyword = document.getElementById('keyword').value;
+            
+            $.ajax({
+                method: "GET",
+                url: "https://dapi.kakao.com/v2/local/search/keyword.json",
+                data: { query: keyword },
+                headers: { Authorization: "KakaoAK 9850818349fa1d01f7baf26b1a22c223" }
+            })
+            .done(function (response) {
+                var resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = '';
+
+                if (response.documents.length > 0) {
+                    for (var i = 0; i < response.documents.length; i++) {
+                        var place = response.documents[i];
+                        var name = place.place_name;
+                        var address = place.address_name;
+
+                        var placeDiv = document.createElement('div');
+                        placeDiv.innerHTML = "<strong>" + name + "</strong><br>" + address;
+                        resultDiv.appendChild(placeDiv);
+                    }
+                } else {
+                    resultDiv.innerHTML = "검색 결과가 없습니다.";
+                }
+            })
+            .fail(function (error) {
+                console.log(error);
+            });
+        }
+    </script>
+</body>
+
+</html>

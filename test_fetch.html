@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>테스트</h1>
+  <input id="search" type="text" value="">
+  <p id="test1"></p>
+  <p id="test2"></p>
+  <p id="test3"></p>
+  <p id="test4"></p>
+  <script>
+    function getdata(i) {
+      // let search = document.getElementById("city").value;
+      fetch('https://api.odcloud.kr/api/15096728/v1/uddi:a7cfe5da-2d11-4416-b67f-aff99ee63bbe?page=1&perPage=10&serviceKey=dvxaXfX6hB3M%2Fhizzw%2BrCC5c9677ILG8ULWYM7y7R5YLKbl332xtCDxaJGj3TBALyf9sGSQktMV5W3hSS60fJg%3D%3D')
+        .then((response) => response.json())
+        .then((data) => {
+          // document.getElementById("test1").innerHTML = data['data'][i]['시도명'];
+          // document.getElementById("test2").innerHTML = data['data'][i]['시군구명'];
+          // document.getElementById("test3").innerHTML = data['data'][i]['도로명'];
+          // document.getElementById("test4").innerHTML = data['data'][i]['도로명상세'];
+          document.getElementById("test1").innerHTML = data['currentCount'];
+        });
+    }
+    // for(let i = 0;i<5;i++)
+    //   getdata(i);
+    getdata(0);
+  </script>
+</body>
+</html>

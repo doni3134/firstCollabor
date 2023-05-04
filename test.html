@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <h1>안녕하세요</h1>
+
+  <script>
+    var xhr = new XMLHttpRequest();
+    var url = 'http://apis.data.go.kr/6260000/FoodService/getFoodKr'; /*URL*/
+    var queryParams = '?' + encodeURIComponent('serviceKey') + '=' + 'dvxaXfX6hB3M%2Fhizzw%2BrCC5c9677ILG8ULWYM7y7R5YLKbl332xtCDxaJGj3TBALyf9sGSQktMV5W3hSS60fJg%3D%3D'; /*Service Key*/
+    queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /**/
+    queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /**/
+    queryParams += '&' + encodeURIComponent('resultType') + '=' + encodeURIComponent(''); /**/
+    queryParams += '&' + encodeURIComponent('UC_SEQ') + '=' + encodeURIComponent(''); /**/
+    xhr.open('GET', url + queryParams);
+    xhr.onreadystatechange = function () {
+      if (this.readyState == 4) {
+        alert('Status: ' + this.status + 'nHeaders: ' + JSON.stringify(this.getAllResponseHeaders()) + 'nBody: ' + this.responseText);
+      }
+    };
+
+    xhr.send('');
+  </script>
+</body>
+
+</html>

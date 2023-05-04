@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>숙박 테스트</h1>
+  <input id="search" type="text" value="">
+  <button id="button1" onclick="getdata()">검색</button>
+  <p id="test1"></p>
+  <script>
+    function getdata() {
+      fetch('https://api.odcloud.kr/api/15096728/v1/uddi:a7cfe5da-2d11-4416-b67f-aff99ee63bbe?page=1&perPage=2893&serviceKey=dvxaXfX6hB3M%2Fhizzw%2BrCC5c9677ILG8ULWYM7y7R5YLKbl332xtCDxaJGj3TBALyf9sGSQktMV5W3hSS60fJg%3D%3D')
+        .then((response) => response.json())
+        .then((data) => {
+          for(let i=0;i<2893;i++){
+          var str = data['data'][i]['시도명'] +" "+ data['data'][i]['시군구명'] +" "+ data['data'][i]['도로명'] +" "+ data['data'][i]['도로명상세']+" "+data['data'][i]['업체명'];
+          let search = document.getElementById("search").value;
+          if(str.indexOf(search) != -1){
+            document.getElementById("test1").innerHTML = str;
+          }
+        }
+      });
+    }
+    
+  </script>
+</body>
+</html>

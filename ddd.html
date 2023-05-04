@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>식당 테스트</h1>
+  <input id="search" type="text" value="">
+  <button id="button1" onclick="getdata()">검색</button>
+  <p id="test1"></p>
+  <script>
+    function getdata() {
+      fetch('https://apis.data.go.kr/6260000/FoodService/getFoodKr?serviceKey=dvxaXfX6hB3M%2Fhizzw%2BrCC5c9677ILG8ULWYM7y7R5YLKbl332xtCDxaJGj3TBALyf9sGSQktMV5W3hSS60fJg%3D%3D&pageNo=1&numOfRows=150&resultType=json')
+        .then((response) => response.json())
+        .then((data) => {
+          var search = document.getElementById("search").value;
+          var results = [];
+          for (let i = 0; i < data['getFoodKr']['item'].length; i++) {
+            var str = data['getFoodKr']['item'][i]['MAIN_TITLE'] + " " + data['getFoodKr']['item'][i]['GUGUN_NM'] + " " + data['getFoodKr']['item'][i]['ADDR1'];
+            if (str.includes(search)) {
+              results.push(str);
+            }
+            if (results.length === 10) {  // 검색 결과가 10개일 경우 루프 종료
+              break;
+            }
+          }
+          document.getElementById("test1").innerHTML = results.join("<br>");
+        });
+    }
+  </script>
+</body>
+
+</html> 이렇게 수정하면 위에서부터 10개만 나오게 되네요

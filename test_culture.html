@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>테스트</h1>
+  <input id="search" type="text" value="">
+  <button id="button1" onclick="getdata()">검색</button>
+  <p id="test1"></p>
+  <p id="test2"></p>
+  <p id="test3"></p>
+  <p id="test4"></p>
+  <script>
+    function getdata() {
+      fetch('https://apis.data.go.kr/6260000/AttractionService/getAttractionKr?serviceKey=dvxaXfX6hB3M%2Fhizzw%2BrCC5c9677ILG8ULWYM7y7R5YLKbl332xtCDxaJGj3TBALyf9sGSQktMV5W3hSS60fJg%3D%3D&pageNo=1&numOfRows=123&resultType=json')
+        .then((response) => response.json())
+        .then((data) => {
+          var str=data['getAttractionKr']['item'][0]["MAIN_TITLE"];
+          document.getElementById("test1").innerHTML = str;
+      });
+    }
+    
+  </script>
+</body>
+</html>
